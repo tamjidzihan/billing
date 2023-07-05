@@ -30,9 +30,9 @@ window.title("Billing Report Downloader")
 
 
 # Load the logo image
-logo_path = "./tele_exchange_limited_logo.jpg"
+logo_path = "./logo.png"
 logo_image = Image.open(logo_path)
-logo_width, logo_height = 200, 100  # Set the desired width and height for the logo
+logo_width, logo_height = 300, 300  # Set the desired width and height for the logo
 logo_image.thumbnail((logo_width, logo_height))
 logo_image = ImageTk.PhotoImage(logo_image)
 
