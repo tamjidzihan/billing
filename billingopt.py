@@ -38,8 +38,8 @@ def select_dropdown_option(dropdown_id, option_id):
     driver.find_element(By.ID, option_id).click()
 
 
-def download_report():
-    driver.find_element(By.XPATH, '/html/body/div[1]/table/tbody/tr[2]/td[2]/div[1]/div[4]/button[3]').click()
+def download_report(xpath):
+    driver.find_element(By.XPATH,xpath).click()
 
 
 # Logging in and selecting the report tab
@@ -53,14 +53,16 @@ select_date_time(f'{date} 00:00:00', f'{date} 23:59:59')
 
 # Selecting 'Client type' (IOS) and downloading the report
 select_dropdown_option('clienttype_chzn', 'clienttype_chzn_o_1')
-download_report()
+download_report('/html/body/div[1]/table/tbody/tr[2]/td[2]/div[1]/div[4]/button[3]')
+print('International Incomming Report downloaded')
 
 # Selecting 'Client type' (ANS)
 select_dropdown_option('clienttype_chzn', 'clienttype_chzn_o_2')
 
 # Selecting 'Call Type' (Outgoing) and downloading the report
 select_dropdown_option('calltype_chzn', 'calltype_chzn_o_1')
-download_report()
+download_report('/html/body/div[1]/table/tbody/tr[2]/td[2]/div[1]/div[4]/button[3]')
+print('International Outgoing Report(ANS wise) downloaded')
 
 # POPwise Report Tab
 wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="popeWiseReportICX"]/a'))).click()
@@ -71,7 +73,8 @@ select_date_time(f'{date} 00:00:00', f'{date} 23:59:59')
 # Downloading the reports for DHK, CTG, and SYL
 for city, option_id in {'DHK': 'calltype_chzn_o_1', 'CTG': 'calltype_chzn_o_0', 'SYL': 'calltype_chzn_o_2'}.items():
     select_dropdown_option('calltype_chzn', option_id)
-    download_report()
+    download_report('/html/body/div[1]/table/tbody/tr[2]/td[2]/div[1]/div[3]/button/span')
+    print(f'POPwise Report downloaded:{city}')
 
 # Call Volume By IGW Report Tab
 wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="callvolumereportigwForICX"]/a'))).click()
@@ -82,7 +85,8 @@ select_date_time(f'{date} 00:00:00', f'{date} 23:59:59')
 # Selecting call type Outgoing and report type Outgoing, and downloading the report
 select_dropdown_option('calltype_chzn', 'calltype_chzn_o_1')
 select_dropdown_option('reporttype_chzn', 'reporttype_chzn_o_3')
-download_report()
+download_report('/html/body/div[1]/table/tbody/tr[2]/td[2]/div/div[4]/button/span')
+print('International Outgoing Report(IGW wise) downloaded')
 
 time.sleep(5)
 driver.quit()
